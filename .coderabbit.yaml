@@ -1,0 +1,129 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+language: "ko-KR"
+early_access: false
+tone_instructions: "간결하고 근거 있게 설명하고, 실제 결함과 출시 위험을 우선하며 단순 취향 차이는 지적하지 않는다."
+
+reviews:
+  profile: "assertive"
+  request_changes_workflow: false
+  high_level_summary: true
+  high_level_summary_instructions: |
+    사용자 영향, 아키텍처 변경, 테스트 결과, 출시 위험을 짧은 목록으로 요약한다.
+    UI 변경과 데이터/API 변경을 구분하고, 확인되지 않은 사항은 추측하지 말고 명시한다.
+  review_status: true
+  review_details: false
+  collapse_walkthrough: true
+  in_progress_fortune: false
+  poem: false
+
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 3
+    drafts: false
+    ignore_title_keywords:
+      - "WIP"
+      - "DO NOT REVIEW"
+
+  path_filters:
+    - "!**/build/**"
+    - "!**/.gradle/**"
+    - "!**/.idea/**"
+    - "!**/*.iml"
+    - "!gradle/wrapper/gradle-wrapper.jar"
+
+  tools:
+    detekt:
+      enabled: true
+    gitleaks:
+      enabled: true
+    yamllint:
+      enabled: true
+
+  path_instructions:
+    - path: "app/src/main/java/**/*.kt"
+      instructions: |
+        - Kotlin null 안정성, 불변 상태, 구조화된 동시성, 코루틴 취소 전파를 확인한다.
+        - 메인 스레드 블로킹, Activity/Context 누수, 수명주기를 벗어난 작업을 지적한다.
+        - 사용자에게 보이는 문자열 하드코딩과 민감정보·토큰·서버 비밀값 포함을 지적한다.
+        - 공개 API나 동작이 바뀌면 적절한 테스트가 함께 변경됐는지 확인한다.
+
+    - path: "app/src/main/java/**/ui/components/**/*.kt"
+      instructions: |
+        - 공통 컴포넌트가 특정 Screen, ViewModel, Repository 또는 API에 의존하지 않게 한다.
+        - 상태는 가능한 한 외부에서 받고 이벤트는 콜백으로 전달하는 stateless 구조를 우선한다.
+        - Modifier 전달, MaterialTheme 사용, 접근성 설명, 재사용성과 Preview 가능성을 확인한다.
+
+    - path: "app/src/main/java/**/ui/screens/**/*.kt"
+      instructions: |
+        - Screen이 API나 Repository를 직접 호출하지 않고 ViewModel과 UiState를 통해 동작하는지 확인한다.
+        - 단방향 데이터 흐름, 상태 끌어올리기, recomposition 안정성, 수명주기 인식 상태 수집을 확인한다.
+        - 화면 이동은 NavController를 깊게 전달하지 말고 onBack, onItemClick 같은 콜백으로 노출한다.
+        - 로딩, 빈 상태, 오류, 재시도 상태와 접근성을 확인한다.
+
+    - path: "app/src/main/java/**/ui/navigation/**/*.kt"
+      instructions: |
+        - navigation에는 경로, 인자 전달, 백 스택 처리만 두고 비즈니스 로직을 넣지 않는다.
+        - 중복 이동, 잘못된 인자, 딥 링크 입력, 프로세스 복원 시 크래시 가능성을 확인한다.
+
+    - path: "app/src/main/java/**/data/remote/api/**/*.kt"
+      instructions: |
+        - HTTP 메서드, 경로, Query/Body/Header 정의와 suspend 사용이 서버 계약에 맞는지 확인한다.
+        - 인증정보나 API 키를 코드에 하드코딩하지 않으며 로그에 민감정보를 남기지 않게 한다.
+        - UI 또는 Compose 타입이 API 계층으로 유입되지 않게 한다.
+
+    - path: "app/src/main/java/**/data/remote/dto/**/*.kt"
+      instructions: |
+        - DTO가 실제 JSON 계약과 일치하고 누락 가능 필드의 nullability를 안전하게 처리하는지 확인한다.
+        - DTO를 UI에서 직접 사용하지 않고 domain model로 명시적으로 변환하게 한다.
+
+    - path: "app/src/main/java/**/data/repository/**/*.kt"
+      instructions: |
+        - 네트워크 예외와 HTTP 오류를 UI가 처리 가능한 결과로 일관되게 변환하는지 확인한다.
+        - CancellationException을 삼키지 않고, DTO와 domain model의 변환 책임을 지키는지 확인한다.
+        - data 계층이 ui 계층에 의존하지 않게 한다.
+
+    - path: "app/src/main/java/**/domain/**/*.kt"
+      instructions: |
+        - domain 모델과 규칙이 Android, Compose, Retrofit 구현에 의존하지 않게 한다.
+        - 모델은 가능한 한 불변으로 유지하고 의미 없는 nullable 필드를 피한다.
+
+    - path: "app/src/main/java/**/di/**/*.kt"
+      instructions: |
+        - 제공 객체의 수명과 Scope가 일치하고 중복 바인딩이나 순환 의존성이 없는지 확인한다.
+        - 키, 비밀번호, 서명정보 같은 비밀값을 DI 모듈에 하드코딩하지 않게 한다.
+
+    - path: "app/src/main/java/**/MainActivity.kt"
+      instructions: |
+        - MainActivity는 edge-to-edge, 테마, 최상위 navigation 실행만 담당하도록 얇게 유지한다.
+        - 화면별 상태, API 호출, 비즈니스 로직이 Activity에 추가되면 지적한다.
+
+    - path: "app/src/test/**/*.kt"
+      instructions: |
+        - 테스트 이름이 행동과 기대 결과를 드러내고 성공·실패·경계 조건을 검증하는지 확인한다.
+        - 시간, 네트워크, 실행 순서에 의존하지 않는 결정적인 테스트인지 확인한다.
+
+    - path: "app/src/androidTest/**/*.kt"
+      instructions: |
+        - 실제 사용자 흐름과 Compose semantics를 검증하고 임의 sleep이나 좌표 기반 조작을 피하게 한다.
+        - 테스트 간 상태가 격리되고 실패 원인을 명확히 진단할 수 있는지 확인한다.
+
+    - path: "**/*.gradle.kts"
+      instructions: |
+        - AGP, Kotlin, Compose, compileSdk, targetSdk와 AndroidX 의존성의 호환성을 확인한다.
+        - 버전은 version catalog에서 일관되게 관리하고 중복 또는 동적 버전을 지적한다.
+        - 릴리스 서명 비밀값 하드코딩, debuggable 릴리스, 불필요한 권한·의존성을 출시 위험으로 지적한다.
+
+    - path: "gradle/libs.versions.toml"
+      instructions: |
+        - 라이브러리 버전 간 호환성과 Compose BOM 사용 시 개별 Compose 버전 혼용을 확인한다.
+        - 새 의존성이 정말 필요한지, 유지보수·보안·APK 크기 영향이 설명됐는지 확인한다.
+
+    - path: "app/src/main/AndroidManifest.xml"
+      instructions: |
+        - 권한 최소화, exported 설정, intent-filter 노출, 백업 정책과 네트워크 보안을 확인한다.
+        - 컴포넌트 추가가 보안 또는 개인정보 처리 범위를 넓히면 명확히 지적한다.
+
+chat:
+  auto_reply: true
