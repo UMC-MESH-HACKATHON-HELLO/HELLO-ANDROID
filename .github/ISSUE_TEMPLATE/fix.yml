@@ -1,0 +1,35 @@
+name: "🐛 Fix"
+description: "버그 및 오류 수정"
+title: "[Fix] "
+labels:
+  - fix
+assignees: []
+body:
+  - type: textarea
+    id: work-details
+    attributes:
+      label: "주요 작업 내용"
+      description: "발생한 문제와 수정할 내용을 작성해 주세요."
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: "체크리스트"
+      description: "완료할 작업을 체크리스트 형식으로 작성해 주세요."
+      placeholder: |
+        - [ ] 작업 1
+        - [ ] 작업 2
+        - [ ] 작업 3
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: "마감 기한"
+      description: "작업 완료 예정일을 입력해 주세요."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true

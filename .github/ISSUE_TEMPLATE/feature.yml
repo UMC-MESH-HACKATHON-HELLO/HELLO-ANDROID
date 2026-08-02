@@ -1,0 +1,35 @@
+name: "✨ Feature"
+description: "새로운 기능 개발"
+title: "[Feature] "
+labels:
+  - feature
+assignees: []
+body:
+  - type: textarea
+    id: work-details
+    attributes:
+      label: "주요 작업 내용"
+      description: "개발할 기능의 주요 내용과 목적을 작성해 주세요."
+    validations:
+      required: true
+
+  - type: textarea
+    id: checklist
+    attributes:
+      label: "체크리스트"
+      description: "완료할 작업을 체크리스트 형식으로 작성해 주세요."
+      placeholder: |
+        - [ ] 작업 1
+        - [ ] 작업 2
+        - [ ] 작업 3
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: "마감 기한"
+      description: "작업 완료 예정일을 입력해 주세요."
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
