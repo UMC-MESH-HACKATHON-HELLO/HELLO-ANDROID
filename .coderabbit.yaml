@@ -9,7 +9,7 @@ reviews:
   request_changes_workflow: false
   high_level_summary: true
   high_level_summary_instructions: |
-    사용자 영향, 아키텍처 변경, 테스트 결과, 출시 위험을 짧은 목록으로 요약한다.
+    사용자 영향, 아키텍처 변경, 출시 위험을 짧은 목록으로 요약한다.
     UI 변경과 데이터/API 변경을 구분하고, 확인되지 않은 사항은 추측하지 말고 명시한다.
   review_status: true
   review_details: false
@@ -47,7 +47,6 @@ reviews:
         - Kotlin null 안정성, 불변 상태, 구조화된 동시성, 코루틴 취소 전파를 확인한다.
         - 메인 스레드 블로킹, Activity/Context 누수, 수명주기를 벗어난 작업을 지적한다.
         - 사용자에게 보이는 문자열 하드코딩과 민감정보·토큰·서버 비밀값 포함을 지적한다.
-        - 공개 API나 동작이 바뀌면 적절한 테스트가 함께 변경됐는지 확인한다.
 
     - path: "app/src/main/java/**/ui/components/**/*.kt"
       instructions: |
@@ -98,16 +97,6 @@ reviews:
       instructions: |
         - MainActivity는 edge-to-edge, 테마, 최상위 navigation 실행만 담당하도록 얇게 유지한다.
         - 화면별 상태, API 호출, 비즈니스 로직이 Activity에 추가되면 지적한다.
-
-    - path: "app/src/test/**/*.kt"
-      instructions: |
-        - 테스트 이름이 행동과 기대 결과를 드러내고 성공·실패·경계 조건을 검증하는지 확인한다.
-        - 시간, 네트워크, 실행 순서에 의존하지 않는 결정적인 테스트인지 확인한다.
-
-    - path: "app/src/androidTest/**/*.kt"
-      instructions: |
-        - 실제 사용자 흐름과 Compose semantics를 검증하고 임의 sleep이나 좌표 기반 조작을 피하게 한다.
-        - 테스트 간 상태가 격리되고 실패 원인을 명확히 진단할 수 있는지 확인한다.
 
     - path: "**/*.gradle.kts"
       instructions: |
