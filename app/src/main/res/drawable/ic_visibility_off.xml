@@ -1,0 +1,24 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <group android:translateX="0.935" android:translateY="2.535">
+        <path
+            android:fillColor="@android:color/transparent"
+            android:pathData="M10.829,9.029C9.80334,9.8108 8.55445,10.2439 7.26499,10.265C3.065,10.265 0.665,5.46501 0.665,5.46501C1.41133,4.07415 2.44648,2.85898 3.701,1.90101M6.00499,0.809015C6.41799,0.712343 6.84083,0.664018 7.26499,0.665015C11.465,0.665015 13.865,5.46501 13.865,5.46501C13.5008,6.14637 13.0664,6.78785 12.569,7.379M8.53699,6.73701C8.3722,6.91385 8.17348,7.0557 7.95268,7.15408C7.73188,7.25246 7.49353,7.30536 7.25184,7.30962C7.01016,7.31389 6.77009,7.26943 6.54596,7.1789C6.32183,7.08837 6.11822,6.95362 5.9473,6.7827C5.77637,6.61177 5.64163,6.40817 5.5511,6.18404C5.46057,5.95991 5.41611,5.71984 5.42037,5.47815C5.42464,5.23647 5.47754,4.99812 5.57592,4.77732C5.6743,4.55652 5.81614,4.3578 5.99299,4.19301"
+            android:strokeColor="#FFACACAC"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1.33" />
+    </group>
+    <group android:translateX="1.735" android:translateY="0.935">
+        <path
+            android:fillColor="@android:color/transparent"
+            android:pathData="M0.665,0.665L12.665,12.665"
+            android:strokeColor="#FFACACAC"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round"
+            android:strokeWidth="1.33" />
+    </group>
+</vector>

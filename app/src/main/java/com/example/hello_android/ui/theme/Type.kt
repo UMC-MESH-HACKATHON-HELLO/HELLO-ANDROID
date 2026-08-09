@@ -12,6 +12,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.hello_android.R
 
@@ -31,8 +32,8 @@ private fun figmaTextStyle(
     fontWeight = weight,
     fontSize = size,
     lineHeight = lineHeight,
-    // The current Figma font system specifies -2 px for every text style.
-    letterSpacing = (-2).sp,
+    // Figma uses -2% tracking for every text style.
+    letterSpacing = (-0.02).em,
     platformStyle = PlatformTextStyle(includeFontPadding = false),
 )
 
