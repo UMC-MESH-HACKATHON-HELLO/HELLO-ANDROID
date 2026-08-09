@@ -2,6 +2,8 @@ package com.example.hello_android.ui.screens.senior.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.theme.helloColors
@@ -45,12 +48,17 @@ fun SeniorSummaryCard(
                 modifier = Modifier.size(24.dp),
             )
             Text(
-                text = "AI 요약",
+                text = stringResource(R.string.senior_summary_card_title),
                 style = MaterialTheme.helloTypography.body2Strong,
                 color = colors.textPrimary,
             )
         }
-        Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
             summaries.forEach { summary ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),

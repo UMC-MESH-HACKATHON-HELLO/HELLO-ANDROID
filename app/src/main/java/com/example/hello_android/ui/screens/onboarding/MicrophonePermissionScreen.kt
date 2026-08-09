@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
@@ -38,13 +39,13 @@ fun MicrophonePermissionScreen(
             modifier = Modifier.statusBarsPadding(),
         )
         HelloScreenTitle(
-            title = "마이크를 켜주세요",
-            description = "곧 마이크를 물어보면 [허용]을 눌러주세요",
+            title = stringResource(R.string.onboarding_microphone_title),
+            description = stringResource(R.string.onboarding_microphone_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         Image(
             painter = painterResource(R.drawable.onboarding_microphone_permission),
-            contentDescription = "마이크 권한 허용 안내",
+            contentDescription = stringResource(R.string.onboarding_microphone_image_description),
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = 220.dp)
@@ -59,11 +60,11 @@ fun MicrophonePermissionScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             HelloButton(
-                text = "거부 시 마이크 켜는 방법",
+                text = stringResource(R.string.onboarding_microphone_instructions_action),
                 onClick = onShowInstructions,
                 style = HelloButtonStyle.Secondary,
             )
-            HelloButton(text = "다음", onClick = onNext)
+            HelloButton(text = stringResource(R.string.action_next), onClick = onNext)
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.theme.helloColors
@@ -46,7 +47,7 @@ fun SeniorCallButton(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_call),
-                    contentDescription = "도우미와 통화하기",
+                    contentDescription = stringResource(R.string.senior_call_start),
                     tint = colors.iconOnColor,
                     modifier = Modifier.size(40.dp),
                 )

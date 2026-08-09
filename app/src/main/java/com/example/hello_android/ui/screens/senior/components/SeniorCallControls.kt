@@ -26,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
@@ -60,23 +61,23 @@ fun SeniorVoiceCallControls(
         ) {
             SeniorRoundFunctionButton(
                 icon = R.drawable.ic_videocam_disabled,
-                label = "카메라로\n보여주기",
+                label = stringResource(R.string.senior_show_camera),
                 iconColor = colors.iconDefault,
                 showDisabledSlash = true,
                 onClick = onCamera,
             )
             SeniorRoundFunctionButton(
                 icon = R.drawable.ic_screen_share_large,
-                label = "내 화면\n보여주기",
+                label = stringResource(R.string.senior_show_my_screen),
                 iconColor = colors.iconDefault,
                 showDisabledSlash = true,
                 onClick = onScreenShare,
             )
             SeniorRoundFunctionButton(
                 icon = R.drawable.ic_volume_up,
-                label = "스피커",
+                label = stringResource(R.string.senior_speaker),
                 iconColor = colors.statusOn,
-                onClick = {},
+                onClick = null,
             )
         }
         SeniorHangUpButton(onClick = onHangUp)
@@ -102,15 +103,17 @@ fun SeniorCompactCallControls(
     ) {
         SeniorCompactFunctionButton(
             icon = if (mode == SeniorCompactMode.Camera) R.drawable.ic_videocam else R.drawable.ic_screen_share,
-            label = if (mode == SeniorCompactMode.Camera) "카메라" else "내 화면",
+            label = stringResource(
+                if (mode == SeniorCompactMode.Camera) R.string.senior_camera else R.string.senior_my_screen,
+            ),
             iconSize = if (mode == SeniorCompactMode.Camera) 36.dp else 24.dp,
             onClick = onReturnToVoice,
         )
         SeniorHangUpButton(onClick = onHangUp)
         SeniorCompactFunctionButton(
             icon = R.drawable.ic_volume_up,
-            label = "스피커",
-            onClick = {},
+            label = stringResource(R.string.senior_speaker),
+            onClick = null,
         )
     }
 }
@@ -120,12 +123,14 @@ private fun SeniorRoundFunctionButton(
     @DrawableRes icon: Int,
     label: String,
     iconColor: Color,
-    onClick: () -> Unit,
+    onClick: (() -> Unit)?,
     showDisabledSlash: Boolean = false,
 ) {
     val colors = MaterialTheme.helloColors
     Column(
-        modifier = Modifier.clickable(onClick = onClick),
+        modifier = Modifier.then(
+            if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier,
+        ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
@@ -164,11 +169,13 @@ private fun SeniorCompactFunctionButton(
     @DrawableRes icon: Int,
     label: String,
     iconSize: androidx.compose.ui.unit.Dp = 36.dp,
-    onClick: () -> Unit,
+    onClick: (() -> Unit)?,
 ) {
     val colors = MaterialTheme.helloColors
     Column(
-        modifier = Modifier.clickable(onClick = onClick),
+        modifier = Modifier.then(
+            if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier,
+        ),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
@@ -198,7 +205,7 @@ private fun SeniorHangUpButton(onClick: () -> Unit) {
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_call_end),
-            contentDescription = "통화 종료",
+            contentDescription = stringResource(R.string.senior_hang_up),
             tint = colors.iconOnColor,
             modifier = Modifier
                 .width(26.614.dp)

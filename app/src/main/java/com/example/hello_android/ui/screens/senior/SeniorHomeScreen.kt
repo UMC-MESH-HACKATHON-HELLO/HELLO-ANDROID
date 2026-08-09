@@ -14,7 +14,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloScreenTitle
 import com.example.hello_android.ui.components.HelloSystemBars
 import com.example.hello_android.ui.components.HelloTopBar
@@ -31,8 +33,8 @@ fun SeniorHomeScreen(
     Box(modifier = modifier.fillMaxSize()) {
         HelloTopBar(showLogo = true, modifier = Modifier.statusBarsPadding())
         HelloScreenTitle(
-            title = "도움이 필요하신가요?",
-            description = "버튼을 눌러 도움을 요청해보세요",
+            title = stringResource(R.string.senior_home_title),
+            description = stringResource(R.string.senior_home_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         Column(
@@ -44,7 +46,7 @@ fun SeniorHomeScreen(
         ) {
             SeniorCallButton(onClick = onStartCall)
             Text(
-                text = "도우미와 통화하기",
+                text = stringResource(R.string.senior_call_start),
                 style = MaterialTheme.helloTypography.body2Medium,
                 color = MaterialTheme.helloColors.textSecondary,
             )
@@ -56,8 +58,16 @@ fun SeniorHomeScreen(
                 .padding(bottom = 23.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Text("응급 상황은 119", style = MaterialTheme.helloTypography.label2, color = MaterialTheme.helloColors.textDisabled)
-            Text("범죄 신고는 112", style = MaterialTheme.helloTypography.label2, color = MaterialTheme.helloColors.textDisabled)
+            Text(
+                stringResource(R.string.senior_emergency_119),
+                style = MaterialTheme.helloTypography.label2,
+                color = MaterialTheme.helloColors.textDisabled,
+            )
+            Text(
+                stringResource(R.string.senior_emergency_112),
+                style = MaterialTheme.helloTypography.label2,
+                color = MaterialTheme.helloColors.textDisabled,
+            )
         }
     }
 }

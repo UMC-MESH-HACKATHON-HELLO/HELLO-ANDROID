@@ -19,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.ui.theme.helloColors
@@ -67,6 +69,7 @@ fun HelloUnderlineTextField(
                 onValueChange = onValueChange,
                 modifier = Modifier
                     .weight(1f)
+                    .semantics { contentDescription = label }
                     .onFocusChanged { onFocusChange?.invoke(it.isFocused) },
                 textStyle = MaterialTheme.helloTypography.field1.copy(color = colors.textPrimary),
                 singleLine = true,

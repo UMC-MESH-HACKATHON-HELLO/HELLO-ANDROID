@@ -9,7 +9,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.fillMaxSize
+import com.example.hello_android.R
 import com.example.hello_android.ui.screens.auth.AuthRoute
 import com.example.hello_android.ui.screens.onboarding.EntryScreen
 import com.example.hello_android.ui.screens.onboarding.MicrophonePermissionRoute
@@ -92,6 +94,12 @@ fun HelloApp() {
                 onHangUp = { route = HelloRoute.SeniorSummary },
             )
             HelloRoute.SeniorSummary -> SeniorCallingSummaryScreen(
+                summaries = listOf(
+                    stringResource(R.string.senior_summary_sample_question),
+                    stringResource(R.string.senior_summary_sample_answer),
+                    stringResource(R.string.senior_summary_sample_answer),
+                    stringResource(R.string.senior_summary_sample_answer),
+                ),
                 onNext = { route = HelloRoute.SeniorEnd },
             )
             HelloRoute.SeniorEnd -> SeniorCallEndScreen(

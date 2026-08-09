@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
 import com.example.hello_android.ui.components.HelloButtonStyle
 import com.example.hello_android.ui.components.HelloLogo
@@ -40,7 +42,7 @@ fun EntryScreen(
         ) {
             HelloLogo()
             Text(
-                text = "사람과 사람, 사람과 정보를 잇는\n실시간 음성 도움 서비스",
+                text = stringResource(R.string.onboarding_entry_description),
                 style = MaterialTheme.helloTypography.body3,
                 color = MaterialTheme.helloColors.textPrimary,
                 textAlign = TextAlign.Center,
@@ -55,11 +57,14 @@ fun EntryScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             HelloButton(
-                text = "도와줄게요",
+                text = stringResource(R.string.onboarding_helper_action),
                 onClick = onHelperSelected,
                 style = HelloButtonStyle.Secondary,
             )
-            HelloButton(text = "도움이 필요해요", onClick = onSeniorSelected)
+            HelloButton(
+                text = stringResource(R.string.onboarding_senior_action),
+                onClick = onSeniorSelected,
+            )
         }
     }
 }

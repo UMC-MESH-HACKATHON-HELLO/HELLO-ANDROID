@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.ui.theme.helloColors
 import com.example.hello_android.ui.theme.helloTypography
@@ -66,7 +67,11 @@ fun HelloButton(
             .clip(shape)
             .background(background)
             .then(if (border != null) Modifier.border(1.dp, border, shape) else Modifier)
-            .then(if (enabled) Modifier.clickable(onClick = onClick) else Modifier),
+            .clickable(
+                enabled = enabled,
+                role = Role.Button,
+                onClick = onClick,
+            ),
         horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
     ) {

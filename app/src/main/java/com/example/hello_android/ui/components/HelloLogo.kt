@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 
@@ -20,7 +21,7 @@ fun HelloLogo(
         painter = painterResource(
             if (onBrandBackground) R.drawable.hello_logo_white else R.drawable.hello_logo_orange,
         ),
-        contentDescription = "여보세요",
+        contentDescription = stringResource(R.string.brand_name),
         modifier = modifier.then(
             if (compact) Modifier.width(97.dp).height(19.dp)
             else if (onBrandBackground) Modifier.width(205.dp).height(40.dp)

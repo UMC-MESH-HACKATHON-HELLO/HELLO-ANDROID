@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
 import com.example.hello_android.ui.components.HelloButtonStyle
 import com.example.hello_android.ui.components.HelloScreenTitle
@@ -27,8 +29,8 @@ fun SeniorCallingTryingScreen(
     HelloSystemBars(darkStatusIcons = true)
     Box(modifier = modifier.fillMaxSize()) {
         HelloScreenTitle(
-            title = "도우미를 찾고 있어요",
-            description = "잠시만 기다려 주세요",
+            title = stringResource(R.string.senior_call_trying_title),
+            description = stringResource(R.string.senior_call_trying_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         SeniorLoadingDots(
@@ -37,7 +39,7 @@ fun SeniorCallingTryingScreen(
                 .offset(y = (-10).dp),
         )
         HelloButton(
-            text = "취소하기",
+            text = stringResource(R.string.senior_call_cancel),
             onClick = onCancel,
             style = HelloButtonStyle.Secondary,
             modifier = Modifier
@@ -58,8 +60,8 @@ fun SeniorCallingFailScreen(
     HelloSystemBars(darkStatusIcons = true)
     Box(modifier = modifier.fillMaxSize()) {
         HelloScreenTitle(
-            title = "대기 중인 도우미가 없어요",
-            description = "잠시 후 다시 시도해 주세요",
+            title = stringResource(R.string.senior_call_failure_title),
+            description = stringResource(R.string.senior_call_failure_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloStatusIcon(
@@ -74,8 +76,12 @@ fun SeniorCallingFailScreen(
                 .width(328.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            HelloButton("다시 시도하기", onRetry, style = HelloButtonStyle.Secondary)
-            HelloButton("홈으로", onHome)
+            HelloButton(
+                stringResource(R.string.senior_call_retry),
+                onRetry,
+                style = HelloButtonStyle.Secondary,
+            )
+            HelloButton(stringResource(R.string.action_home), onHome)
         }
     }
 }

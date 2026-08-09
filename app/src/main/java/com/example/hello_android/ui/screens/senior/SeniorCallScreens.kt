@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
@@ -53,17 +54,25 @@ fun SeniorVoiceCallScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "익명의 도우미",
+                text = stringResource(R.string.senior_anonymous_helper),
                 style = MaterialTheme.helloTypography.title1,
                 color = colors.textOnColor,
                 textAlign = TextAlign.Center,
             )
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("음성통화", style = MaterialTheme.helloTypography.body3Medium, color = colors.textOnColor)
-                Text("00:03", style = MaterialTheme.helloTypography.body3, color = colors.textOnColor)
+                Text(
+                    stringResource(R.string.senior_voice_call),
+                    style = MaterialTheme.helloTypography.body3Medium,
+                    color = colors.textOnColor,
+                )
+                Text(
+                    stringResource(R.string.senior_call_duration_placeholder),
+                    style = MaterialTheme.helloTypography.body3,
+                    color = colors.textOnColor,
+                )
             }
             Text(
-                text = "AI가 안전을 확인 중이에요",
+                text = stringResource(R.string.senior_ai_monitoring),
                 style = MaterialTheme.helloTypography.body3Medium,
                 color = colors.textOnColor,
                 modifier = Modifier.padding(top = 30.dp),
@@ -96,7 +105,7 @@ fun SeniorCameraCallScreen(
     ) {
         Image(
             painter = painterResource(R.drawable.senior_camera_reference),
-            contentDescription = "카메라 미리보기",
+            contentDescription = stringResource(R.string.senior_camera_preview_description),
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
         )
@@ -113,9 +122,9 @@ fun SeniorCameraCallScreen(
         )
         if (!immersive) {
             SeniorCallHeader(
-                mode = "영상통화",
-                title = "카메라로 보여주는 중",
-                description = "주변을 비추면 도우미가 봐요",
+                mode = stringResource(R.string.senior_video_call),
+                title = stringResource(R.string.senior_camera_active_title),
+                description = stringResource(R.string.senior_camera_active_description),
                 modifier = Modifier.offset(y = 86.dp),
             )
             SeniorCompactCallControls(
@@ -144,9 +153,9 @@ fun SeniorScreenShareCallScreen(
             .background(colors.surfaceDark),
     ) {
         SeniorCallHeader(
-            mode = "화면공유",
-            title = "내 화면을 보여주는 중",
-            description = "다른 앱을 열어도 계속 보여요",
+            mode = stringResource(R.string.senior_screen_share),
+            title = stringResource(R.string.senior_screen_share_active_title),
+            description = stringResource(R.string.senior_screen_share_active_description),
             modifier = Modifier.offset(y = 86.dp),
         )
         SeniorCompactCallControls(

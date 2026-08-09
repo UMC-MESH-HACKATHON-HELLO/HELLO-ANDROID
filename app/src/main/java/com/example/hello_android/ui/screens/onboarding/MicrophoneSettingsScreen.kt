@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
@@ -38,12 +39,12 @@ fun MicrophoneSettingsScreen(
             modifier = Modifier.statusBarsPadding(),
         )
         HelloScreenTitle(
-            title = "마이크 켜는 방법",
+            title = stringResource(R.string.onboarding_microphone_settings_title),
             modifier = Modifier.offset(y = 120.dp),
         )
         Image(
             painter = painterResource(R.drawable.onboarding_microphone_settings),
-            contentDescription = "앱 마이크 권한 설정 화면",
+            contentDescription = stringResource(R.string.onboarding_microphone_settings_image_description),
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = 220.dp)
@@ -56,9 +57,9 @@ fun MicrophoneSettingsScreen(
                 .width(296.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            NumberedInstruction(1, "휴대폰 [설정] 열기")
-            NumberedInstruction(2, "여보세요 → 권한 → 마이크")
-            NumberedInstruction(3, "‘허용'으로 바꾸기")
+            NumberedInstruction(1, stringResource(R.string.onboarding_microphone_settings_step_one))
+            NumberedInstruction(2, stringResource(R.string.onboarding_microphone_settings_step_two))
+            NumberedInstruction(3, stringResource(R.string.onboarding_microphone_settings_step_three))
         }
         Column(
             modifier = Modifier
@@ -69,11 +70,11 @@ fun MicrophoneSettingsScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             HelloButton(
-                text = "설정 열기",
+                text = stringResource(R.string.onboarding_open_settings_action),
                 onClick = onOpenSettings,
                 style = HelloButtonStyle.Secondary,
             )
-            HelloButton(text = "다음", onClick = onNext)
+            HelloButton(text = stringResource(R.string.action_next), onClick = onNext)
         }
     }
 }

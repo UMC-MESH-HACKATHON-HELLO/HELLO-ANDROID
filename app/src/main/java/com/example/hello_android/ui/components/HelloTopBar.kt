@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.theme.helloColors
@@ -40,7 +41,7 @@ fun HelloTopBar(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_arrow_back),
-                    contentDescription = "뒤로가기",
+                    contentDescription = stringResource(R.string.action_back),
                     tint = MaterialTheme.helloColors.iconPrimary,
                     modifier = Modifier.size(28.dp),
                 )

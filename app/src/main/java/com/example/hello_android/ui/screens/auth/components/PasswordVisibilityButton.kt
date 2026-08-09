@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 
@@ -18,7 +19,7 @@ fun PasswordVisibilityButton(
 ) {
     Box(
         modifier = Modifier
-            .size(38.dp)
+            .size(48.dp)
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
@@ -26,7 +27,9 @@ fun PasswordVisibilityButton(
             painter = painterResource(
                 if (visible) R.drawable.ic_visibility else R.drawable.ic_visibility_off,
             ),
-            contentDescription = if (visible) "비밀번호 숨기기" else "비밀번호 보기",
+            contentDescription = stringResource(
+                if (visible) R.string.auth_password_hide else R.string.auth_password_show,
+            ),
             modifier = Modifier.size(16.dp),
         )
     }

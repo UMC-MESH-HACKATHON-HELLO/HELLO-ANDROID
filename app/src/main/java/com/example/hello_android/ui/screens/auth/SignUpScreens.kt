@@ -21,11 +21,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
 import com.example.hello_android.ui.components.HelloButtonStyle
 import com.example.hello_android.ui.components.HelloScreenTitle
@@ -54,19 +56,19 @@ fun SignUpEmailScreen(
     Box(modifier = modifier.fillMaxSize().dismissKeyboardOnTap()) {
         HelloTopBar(showBack = true, onBack = onBack, modifier = Modifier.statusBarsPadding())
         HelloScreenTitle(
-            title = "이메일을 입력해주세요",
+            title = stringResource(R.string.auth_sign_up_email_title),
             description = if (fieldFocused || errorMessage != null) {
-                "가입을 위해 필요한 정보를 입력해 주세요."
+                stringResource(R.string.auth_sign_up_required_description)
             } else {
-                "서비스에 사용할 이메일 주소예요"
+                stringResource(R.string.auth_sign_up_email_description)
             },
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloUnderlineTextField(
             value = email,
             onValueChange = onEmailChange,
-            label = "이메일",
-            placeholder = "이메일 입력",
+            label = stringResource(R.string.auth_email_label),
+            placeholder = stringResource(R.string.auth_email_placeholder),
             errorMessage = errorMessage,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             onFocusChange = { fieldFocused = it },
@@ -76,7 +78,7 @@ fun SignUpEmailScreen(
                 .width(328.dp),
         )
         AdaptiveBottomButton(
-            text = "다음",
+            text = stringResource(R.string.action_next),
             enabled = email.isNotBlank(),
             onClick = onNext,
             modifier = Modifier.align(Alignment.BottomCenter),
@@ -101,15 +103,15 @@ fun SignUpCodeScreen(
     Box(modifier = modifier.fillMaxSize().dismissKeyboardOnTap()) {
         HelloTopBar(showBack = true, onBack = onBack, modifier = Modifier.statusBarsPadding())
         HelloScreenTitle(
-            title = "인증코드를 입력해주세요",
-            description = "${email}으로 코드가 전송되었어요.",
+            title = stringResource(R.string.auth_sign_up_code_title),
+            description = stringResource(R.string.auth_sign_up_code_description, email),
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloUnderlineTextField(
             value = code,
             onValueChange = { onCodeChange(it.filter(Char::isDigit).take(6)) },
-            label = "인증코드",
-            placeholder = "인증코드 6자리",
+            label = stringResource(R.string.auth_code_label),
+            placeholder = stringResource(R.string.auth_code_placeholder),
             errorMessage = errorMessage,
             supportingMessage = resendMessage,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
@@ -142,14 +144,14 @@ fun SignUpCodeScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "재발송",
+                    text = stringResource(R.string.auth_code_resend),
                     style = MaterialTheme.helloTypography.body3,
                     color = MaterialTheme.helloColors.textTertiary,
                     textDecoration = TextDecoration.Underline,
                 )
             }
             HelloButton(
-                text = "다음",
+                text = stringResource(R.string.action_next),
                 onClick = onNext,
                 enabled = code.length == 6,
                 style = if (code.length == 6) HelloButtonStyle.Primary else HelloButtonStyle.Disabled,
@@ -173,17 +175,21 @@ fun SignUpPasswordScreen(
     Box(modifier = modifier.fillMaxSize().dismissKeyboardOnTap()) {
         HelloTopBar(showBack = true, onBack = onBack, modifier = Modifier.statusBarsPadding())
         HelloScreenTitle(
-            title = "비밀번호를 설정해주세요",
-            description = "가입을 위해 필요한 정보를 입력해 주세요.",
+            title = stringResource(R.string.auth_sign_up_password_title),
+            description = stringResource(R.string.auth_sign_up_required_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloUnderlineTextField(
             value = password,
             onValueChange = { onPasswordChange(it.take(16)) },
-            label = "비밀번호",
-            placeholder = "비밀번호 입력",
+            label = stringResource(R.string.auth_password_label),
+            placeholder = stringResource(R.string.auth_password_placeholder),
             errorMessage = errorMessage,
-            supportingMessage = if (errorMessage == null) "영문, 숫자, 특수문자 포함 8~16자" else null,
+            supportingMessage = if (errorMessage == null) {
+                stringResource(R.string.auth_password_requirement)
+            } else {
+                null
+            },
             visualTransformation = if (passwordVisible) {
                 VisualTransformation.None
             } else {
@@ -199,7 +205,7 @@ fun SignUpPasswordScreen(
                 .width(328.dp),
         )
         AdaptiveBottomButton(
-            text = "다음",
+            text = stringResource(R.string.action_next),
             enabled = password.isNotEmpty(),
             onClick = onNext,
             modifier = Modifier.align(Alignment.BottomCenter),
@@ -215,7 +221,7 @@ fun SignUpSuccessScreen(
     HelloSystemBars(darkStatusIcons = true)
     Box(modifier = modifier.fillMaxSize()) {
         HelloScreenTitle(
-            title = "가입이 완료되었어요",
+            title = stringResource(R.string.auth_sign_up_success_title),
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloStatusIcon(
@@ -223,7 +229,7 @@ fun SignUpSuccessScreen(
             modifier = Modifier.align(Alignment.Center),
         )
         HelloButton(
-            text = "홈으로",
+            text = stringResource(R.string.action_home),
             onClick = onHome,
             modifier = Modifier
                 .align(Alignment.BottomCenter)

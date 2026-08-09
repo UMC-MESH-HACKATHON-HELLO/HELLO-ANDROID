@@ -23,7 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
 import com.example.hello_android.ui.components.HelloButtonStyle
@@ -37,67 +40,75 @@ fun RoleChoiceSheet(
     onEmail: () -> Unit,
 ) {
     val colors = MaterialTheme.helloColors
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colors.surfaceDark.copy(alpha = 0.3f))
-            .clickable(onClick = onDismiss),
+    Dialog(
+        onDismissRequest = onDismiss,
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            decorFitsSystemWindows = false,
+        ),
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(296.dp)
-                .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-                .background(colors.surfaceDefault)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    onClick = {},
-                )
-                .navigationBarsPadding()
-                .padding(start = 16.dp, top = 20.dp, end = 16.dp, bottom = 40.dp),
-            verticalArrangement = Arrangement.spacedBy(30.dp),
+                .fillMaxSize()
+                .background(colors.surfaceDark.copy(alpha = 0.3f))
+                .clickable(onClick = onDismiss),
         ) {
-            Row(
+            Column(
                 modifier = Modifier
+                    .align(Alignment.BottomCenter)
                     .fillMaxWidth()
-                    .height(48.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    text = "가입 방법을 선택해 주세요",
-                    style = MaterialTheme.helloTypography.body2Strong,
-                    color = colors.textPrimary,
-                )
-                Box(
-                    modifier = Modifier
-                        .size(48.dp)
-                        .clickable(onClick = onDismiss),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.ic_close),
-                        contentDescription = "닫기",
-                        modifier = Modifier.size(16.dp),
+                    .height(296.dp)
+                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
+                    .background(colors.surfaceDefault)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null,
+                        onClick = {},
                     )
-                }
-            }
-            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                KakaoButton(text = "카카오로 시작하기", onClick = onKakao)
-                HelloButton(
-                    text = "이메일로 시작하기",
-                    onClick = onEmail,
-                    style = HelloButtonStyle.Secondary,
-                    leadingContent = {
+                    .navigationBarsPadding()
+                    .padding(start = 16.dp, top = 20.dp, end = 16.dp, bottom = 40.dp),
+                verticalArrangement = Arrangement.spacedBy(30.dp),
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(48.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
+                    Text(
+                        text = stringResource(R.string.auth_sign_up_method_title),
+                        style = MaterialTheme.helloTypography.body2Strong,
+                        color = colors.textPrimary,
+                    )
+                    Box(
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clickable(onClick = onDismiss),
+                        contentAlignment = Alignment.Center,
+                    ) {
                         Image(
-                            painter = painterResource(R.drawable.ic_email),
-                            contentDescription = null,
+                            painter = painterResource(R.drawable.ic_close),
+                            contentDescription = stringResource(R.string.action_close),
                             modifier = Modifier.size(16.dp),
                         )
-                    },
-                )
+                    }
+                }
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    KakaoButton(text = stringResource(R.string.auth_kakao_start), onClick = onKakao)
+                    HelloButton(
+                        text = stringResource(R.string.auth_email_start),
+                        onClick = onEmail,
+                        style = HelloButtonStyle.Secondary,
+                        leadingContent = {
+                            Image(
+                                painter = painterResource(R.drawable.ic_email),
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                            )
+                        },
+                    )
+                }
             }
         }
     }

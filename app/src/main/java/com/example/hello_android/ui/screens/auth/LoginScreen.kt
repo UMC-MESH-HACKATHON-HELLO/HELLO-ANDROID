@@ -19,11 +19,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -42,6 +44,7 @@ import com.example.hello_android.ui.screens.auth.components.RoleChoiceSheet
 import com.example.hello_android.ui.screens.auth.components.dismissKeyboardOnTap
 import com.example.hello_android.ui.theme.helloColors
 import com.example.hello_android.ui.theme.helloTypography
+import com.example.hello_android.R
 
 @Composable
 fun LoginScreen(
@@ -53,7 +56,7 @@ fun LoginScreen(
     passwordError: String? = null,
 ) {
     var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var showSignUpSheet by rememberSaveable { mutableStateOf(false) }
     val enabled = email.isNotBlank() && password.isNotBlank()
@@ -67,8 +70,8 @@ fun LoginScreen(
             modifier = Modifier.statusBarsPadding(),
         )
         HelloScreenTitle(
-            title = "도우미로 시작할까요?",
-            description = "서비스 이용을 위해 로그인해 주세요",
+            title = stringResource(R.string.auth_login_title),
+            description = stringResource(R.string.auth_login_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         Column(
@@ -82,15 +85,15 @@ fun LoginScreen(
                 HelloUnderlineTextField(
                     value = email,
                     onValueChange = { email = it },
-                    label = "이메일",
-                    placeholder = "이메일 입력",
+                    label = stringResource(R.string.auth_email_label),
+                    placeholder = stringResource(R.string.auth_email_placeholder),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 )
                 HelloUnderlineTextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = "비밀번호",
-                    placeholder = "비밀번호 입력",
+                    label = stringResource(R.string.auth_password_label),
+                    placeholder = stringResource(R.string.auth_password_placeholder),
                     errorMessage = passwordError,
                     visualTransformation = if (passwordVisible) {
                         VisualTransformation.None
@@ -104,7 +107,7 @@ fun LoginScreen(
                 )
             }
             HelloButton(
-                text = "로그인",
+                text = stringResource(R.string.auth_login_action),
                 onClick = { onLogin(email, password) },
                 enabled = enabled,
                 style = if (enabled) HelloButtonStyle.Primary else HelloButtonStyle.Disabled,
@@ -124,7 +127,7 @@ fun LoginScreen(
                         )
                     }
                     Text(
-                        text = "또는",
+                        text = stringResource(R.string.auth_separator_or),
                         style = MaterialTheme.helloTypography.body3,
                         color = colors.textDisabled,
                     )
@@ -137,7 +140,7 @@ fun LoginScreen(
                         )
                     }
                 }
-                KakaoButton(text = "카카오로 계속하기", onClick = onKakao)
+                KakaoButton(text = stringResource(R.string.auth_kakao_continue), onClick = onKakao)
             }
         }
         Box(
@@ -150,7 +153,7 @@ fun LoginScreen(
             contentAlignment = Alignment.Center,
         ) {
             Text(
-                text = "회원가입",
+                text = stringResource(R.string.auth_sign_up),
                 style = MaterialTheme.helloTypography.body3,
                 color = colors.textTertiary,
                 textAlign = TextAlign.Center,

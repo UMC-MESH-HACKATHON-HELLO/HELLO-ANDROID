@@ -1,5 +1,6 @@
 package com.example.hello_android.ui.screens.senior
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,30 +15,34 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
 import com.example.hello_android.ui.components.HelloScreenTitle
 import com.example.hello_android.ui.components.HelloSystemBars
 import com.example.hello_android.ui.components.HelloTopBar
 import com.example.hello_android.ui.screens.senior.components.SeniorReportOption
 
-private val seniorReportReasons = listOf(
-    "금전 · 계좌를 요구했어요",
-    "개인정보를 물어봤어요",
-    "무례한 언행을 했어요",
-    "불성실하게 응대했어요",
-    "기타",
-)
+enum class SeniorReportReason(@param:StringRes val labelRes: Int) {
+    Financial(R.string.senior_report_financial),
+    PersonalInformation(R.string.senior_report_personal_information),
+    RudeLanguage(R.string.senior_report_rude_language),
+    Unhelpful(R.string.senior_report_unhelpful),
+    Other(R.string.senior_report_other),
+}
 
 @Composable
 fun SeniorReportScreen(
     onBack: () -> Unit,
-    onSubmit: (Set<String>) -> Unit,
+    onSubmit: (Set<SeniorReportReason>) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val selections = remember {
         mutableStateListOf(true, false, false, false, false)
     }
+    val reasons = SeniorReportReason.entries
+    val hasSelection = selections.any { it }
 
     HelloSystemBars(darkStatusIcons = true)
     Box(modifier = modifier.fillMaxSize()) {
@@ -47,8 +52,8 @@ fun SeniorReportScreen(
             modifier = Modifier.statusBarsPadding(),
         )
         HelloScreenTitle(
-            title = "무엇이 문제였나요?",
-            description = "신고 사유를 선택 해주세요",
+            title = stringResource(R.string.senior_report_title),
+            description = stringResource(R.string.senior_report_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         Column(
@@ -58,23 +63,24 @@ fun SeniorReportScreen(
                 .width(328.dp),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            seniorReportReasons.forEachIndexed { index, reason ->
+            reasons.forEachIndexed { index, reason ->
                 SeniorReportOption(
-                    text = reason,
+                    text = stringResource(reason.labelRes),
                     selected = selections[index],
                     onClick = { selections[index] = !selections[index] },
                 )
             }
         }
         HelloButton(
-            text = "신고하기",
+            text = stringResource(R.string.senior_report_submit),
             onClick = {
                 onSubmit(
-                    seniorReportReasons
+                    reasons
                         .filterIndexed { index, _ -> selections[index] }
                         .toSet(),
                 )
             },
+            enabled = hasSelection,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .navigationBarsPadding()

@@ -14,8 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
 import com.example.hello_android.ui.components.HelloScreenTitle
 import com.example.hello_android.ui.components.HelloSystemBars
@@ -27,30 +29,26 @@ import com.example.hello_android.ui.theme.helloTypography
 
 @Composable
 fun SeniorCallingSummaryScreen(
+    summaries: List<String>,
     onNext: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     HelloSystemBars(darkStatusIcons = true)
     Box(modifier = modifier.fillMaxSize()) {
         HelloScreenTitle(
-            title = "이번 통화 내용 요약이에요",
-            description = "이 요약은 한 번만 보여드려요",
+            title = stringResource(R.string.senior_summary_title),
+            description = stringResource(R.string.senior_summary_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         SeniorSummaryCard(
-            summaries = listOf(
-                "OO역 3호선 환승 방법에 대해 물어봤어요.",
-                "3호선 환승은 2번 출구로 나가 왼쪽으로 이동하세요.",
-                "3호선 환승은 2번 출구로 나가 왼쪽으로 이동하세요.",
-                "3호선 환승은 2번 출구로 나가 왼쪽으로 이동하세요.",
-            ),
+            summaries = summaries,
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = 260.dp)
                 .width(328.dp),
         )
         HelloButton(
-            text = "다음",
+            text = stringResource(R.string.action_next),
             onClick = onNext,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -72,11 +70,14 @@ fun SeniorCallEndScreen(
     val colors = MaterialTheme.helloColors
     Box(modifier = modifier.fillMaxSize()) {
         HelloScreenTitle(
-            title = if (automaticEnd) "통화가 자동 종료되었어요" else "도움이 되었길 바라요",
+            title = stringResource(
+                if (automaticEnd) R.string.senior_call_automatic_end_title
+                else R.string.senior_call_end_title,
+            ),
             description = if (automaticEnd) {
-                "AI가 부적절한 행동 · 언행을 감지했어요"
+                stringResource(R.string.senior_call_automatic_end_description)
             } else {
-                "필요하면 언제든 다시 요청하세요"
+                stringResource(R.string.senior_call_end_description)
             },
             modifier = Modifier.offset(y = 120.dp),
         )
@@ -101,13 +102,13 @@ fun SeniorCallEndScreen(
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = "불편한 일이 있었나요? 신고하기",
+                    text = stringResource(R.string.senior_report_prompt),
                     style = MaterialTheme.helloTypography.body3,
                     color = colors.textTertiary,
                     textDecoration = TextDecoration.Underline,
                 )
             }
-            HelloButton(text = "홈으로", onClick = onHome)
+            HelloButton(text = stringResource(R.string.action_home), onClick = onHome)
         }
     }
 }
