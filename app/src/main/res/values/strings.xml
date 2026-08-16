@@ -21,8 +21,6 @@
     <string name="auth_kakao_start">카카오로 시작하기</string>
     <string name="auth_email_start">이메일로 시작하기</string>
     <string name="auth_sign_up_email_title">이메일을 입력해주세요</string>
-    <string name="auth_sign_up_required_description">가입을 위해 필요한 정보를 입력해 주세요.</string>
-    <string name="auth_sign_up_email_description">서비스에 사용할 이메일 주소예요</string>
     <string name="auth_sign_up_code_title">인증코드를 입력해주세요</string>
     <string name="auth_sign_up_code_description">%1$s으로 코드가 전송되었어요.</string>
     <string name="auth_code_label">인증코드</string>

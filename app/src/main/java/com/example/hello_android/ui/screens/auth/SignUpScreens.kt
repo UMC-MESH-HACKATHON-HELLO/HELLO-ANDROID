@@ -15,10 +15,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -50,18 +46,11 @@ fun SignUpEmailScreen(
     modifier: Modifier = Modifier,
     errorMessage: String? = null,
 ) {
-    var fieldFocused by rememberSaveable { mutableStateOf(false) }
-
     HelloSystemBars(darkStatusIcons = true)
     Box(modifier = modifier.fillMaxSize().dismissKeyboardOnTap()) {
         HelloTopBar(showBack = true, onBack = onBack, modifier = Modifier.statusBarsPadding())
         HelloScreenTitle(
             title = stringResource(R.string.auth_sign_up_email_title),
-            description = if (fieldFocused || errorMessage != null) {
-                stringResource(R.string.auth_sign_up_required_description)
-            } else {
-                stringResource(R.string.auth_sign_up_email_description)
-            },
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloUnderlineTextField(
@@ -71,7 +60,6 @@ fun SignUpEmailScreen(
             placeholder = stringResource(R.string.auth_email_placeholder),
             errorMessage = errorMessage,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-            onFocusChange = { fieldFocused = it },
             modifier = Modifier
                 .align(Alignment.TopCenter)
                 .offset(y = 230.dp)
@@ -176,7 +164,6 @@ fun SignUpPasswordScreen(
         HelloTopBar(showBack = true, onBack = onBack, modifier = Modifier.statusBarsPadding())
         HelloScreenTitle(
             title = stringResource(R.string.auth_sign_up_password_title),
-            description = stringResource(R.string.auth_sign_up_required_description),
             modifier = Modifier.offset(y = 120.dp),
         )
         HelloUnderlineTextField(
