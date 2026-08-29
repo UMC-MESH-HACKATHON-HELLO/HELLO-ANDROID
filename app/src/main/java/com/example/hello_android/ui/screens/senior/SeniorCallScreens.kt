@@ -1,0 +1,170 @@
+package com.example.hello_android.ui.screens.senior
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import com.example.hello_android.R
+import com.example.hello_android.ui.components.HelloSystemBars
+import com.example.hello_android.ui.screens.senior.components.SeniorCallHeader
+import com.example.hello_android.ui.screens.senior.components.SeniorCompactCallControls
+import com.example.hello_android.ui.screens.senior.components.SeniorCompactMode
+import com.example.hello_android.ui.screens.senior.components.SeniorVoiceCallControls
+import com.example.hello_android.ui.theme.helloColors
+import com.example.hello_android.ui.theme.helloTypography
+
+@Composable
+fun SeniorVoiceCallScreen(
+    onCamera: () -> Unit,
+    onScreenShare: () -> Unit,
+    onHangUp: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    HelloSystemBars(darkStatusIcons = false)
+    val colors = MaterialTheme.helloColors
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.surfaceBrand),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = 120.dp)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                text = stringResource(R.string.senior_anonymous_helper),
+                style = MaterialTheme.helloTypography.title1,
+                color = colors.textOnColor,
+                textAlign = TextAlign.Center,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Text(
+                    stringResource(R.string.senior_voice_call),
+                    style = MaterialTheme.helloTypography.body3Medium,
+                    color = colors.textOnColor,
+                )
+                Text(
+                    stringResource(R.string.senior_call_duration_placeholder),
+                    style = MaterialTheme.helloTypography.body3,
+                    color = colors.textOnColor,
+                )
+            }
+            Text(
+                text = stringResource(R.string.senior_ai_monitoring),
+                style = MaterialTheme.helloTypography.body3Medium,
+                color = colors.textOnColor,
+                modifier = Modifier.padding(top = 30.dp),
+            )
+        }
+        SeniorVoiceCallControls(
+            onCamera = onCamera,
+            onScreenShare = onScreenShare,
+            onHangUp = onHangUp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding(),
+        )
+    }
+}
+
+@Composable
+fun SeniorCameraCallScreen(
+    onReturnToVoice: () -> Unit,
+    onHangUp: () -> Unit,
+    modifier: Modifier = Modifier,
+    immersive: Boolean = false,
+) {
+    HelloSystemBars(darkStatusIcons = false)
+    val colors = MaterialTheme.helloColors
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.surfaceCameraFallback),
+    ) {
+        Image(
+            painter = painterResource(R.drawable.senior_camera_reference),
+            contentDescription = stringResource(R.string.senior_camera_preview_description),
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(258.dp)
+                .align(Alignment.TopCenter)
+                .background(
+                    Brush.verticalGradient(
+                        listOf(colors.surfaceDark, colors.surfaceDark.copy(alpha = 0f)),
+                    ),
+                ),
+        )
+        if (!immersive) {
+            SeniorCallHeader(
+                mode = stringResource(R.string.senior_video_call),
+                title = stringResource(R.string.senior_camera_active_title),
+                description = stringResource(R.string.senior_camera_active_description),
+                modifier = Modifier.offset(y = 86.dp),
+            )
+            SeniorCompactCallControls(
+                mode = SeniorCompactMode.Camera,
+                onReturnToVoice = onReturnToVoice,
+                onHangUp = onHangUp,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding(),
+            )
+        }
+    }
+}
+
+@Composable
+fun SeniorScreenShareCallScreen(
+    onReturnToVoice: () -> Unit,
+    onHangUp: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    HelloSystemBars(darkStatusIcons = false)
+    val colors = MaterialTheme.helloColors
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.surfaceDark),
+    ) {
+        SeniorCallHeader(
+            mode = stringResource(R.string.senior_screen_share),
+            title = stringResource(R.string.senior_screen_share_active_title),
+            description = stringResource(R.string.senior_screen_share_active_description),
+            modifier = Modifier.offset(y = 86.dp),
+        )
+        SeniorCompactCallControls(
+            mode = SeniorCompactMode.ScreenShare,
+            onReturnToVoice = onReturnToVoice,
+            onHangUp = onHangUp,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .navigationBarsPadding(),
+        )
+    }
+}

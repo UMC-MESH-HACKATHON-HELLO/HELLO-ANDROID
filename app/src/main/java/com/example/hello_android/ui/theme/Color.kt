@@ -16,14 +16,20 @@ internal object HelloPrimitiveColors {
     val TextDisabled = Color(0xFF999999)
     val IconDefault = Color(0xFFACACAC)
     val Border = Color(0xFFE0E0E0)
+    val BorderSubtle = Color(0xFFEAEAEA)
+    val BorderSelection = Color(0xFFEDEAEA)
     val DisabledFill = Color(0xFFF5F5F5)
 
-    val Orange = Color(0xFFFF773D)
+    val Orange = Color(0xFFF16022)
+    val OrangeBackground = Color(0xFFFF773D)
+    val OrangeSubtle = Color(0xFFFEEFE9)
     val Activated = Color(0xFF4A4AFA)
     val ActivatedFill = Color(0xFFF2F6FF)
     val Error = Color(0xFFEF2B2A)
     val ErrorFill = Color(0xFFFFE4E3)
     val On = Color(0xFF2FD656)
+    val Kakao = Color(0xFFFEE500)
+    val CameraFallback = Color(0xFF101010)
 }
 
 /** Semantic colors used by screens and components. Raw hex values stay private. */
@@ -45,8 +51,15 @@ data class HelloColors(
     val surfaceDisabled: Color,
     val surfaceActivated: Color,
     val surfaceError: Color,
+    val surfaceBrand: Color,
+    val surfaceBrandSubtle: Color,
+    val surfaceDark: Color,
+    val surfaceCameraFallback: Color,
+    val surfaceKakao: Color,
     val borderDefault: Color,
     val borderDisabled: Color,
+    val borderSubtle: Color,
+    val borderSelection: Color,
 )
 
 internal val HelloLightColors = HelloColors(
@@ -66,8 +79,15 @@ internal val HelloLightColors = HelloColors(
     surfaceDisabled = HelloPrimitiveColors.DisabledFill,
     surfaceActivated = HelloPrimitiveColors.ActivatedFill,
     surfaceError = HelloPrimitiveColors.ErrorFill,
+    surfaceBrand = HelloPrimitiveColors.OrangeBackground,
+    surfaceBrandSubtle = HelloPrimitiveColors.OrangeSubtle,
+    surfaceDark = HelloPrimitiveColors.TextBlack,
+    surfaceCameraFallback = HelloPrimitiveColors.CameraFallback,
+    surfaceKakao = HelloPrimitiveColors.Kakao,
     borderDefault = HelloPrimitiveColors.Border,
     borderDisabled = HelloPrimitiveColors.IconDefault,
+    borderSubtle = HelloPrimitiveColors.BorderSubtle,
+    borderSelection = HelloPrimitiveColors.BorderSelection,
 )
 
 internal val LocalHelloColors = staticCompositionLocalOf { HelloLightColors }
