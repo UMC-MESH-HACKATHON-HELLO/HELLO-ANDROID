@@ -1,15 +1,15 @@
-package com.example.hello_android.ui.screens.senior.components
+package com.example.hello_android.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,10 +24,10 @@ import com.example.hello_android.ui.theme.helloColors
 import com.example.hello_android.ui.theme.helloTypography
 
 @Composable
-fun SeniorReportOption(
+fun HelloCheckbox(
     text: String,
-    selected: Boolean,
-    onClick: () -> Unit,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = MaterialTheme.helloColors
@@ -39,9 +39,9 @@ fun SeniorReportOption(
             .height(54.dp)
             .border(1.dp, colors.borderSelection, RoundedCornerShape(5.dp))
             .toggleable(
-                value = selected,
+                value = checked,
                 role = Role.Checkbox,
-                onValueChange = { onClick() },
+                onValueChange = onCheckedChange,
             )
             .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -50,7 +50,7 @@ fun SeniorReportOption(
             modifier = Modifier
                 .size(24.dp)
                 .then(
-                    if (selected) {
+                    if (checked) {
                         Modifier.background(colors.actionPrimary, checkboxShape)
                     } else {
                         Modifier
@@ -60,7 +60,7 @@ fun SeniorReportOption(
                 ),
             contentAlignment = Alignment.Center,
         ) {
-            if (selected) {
+            if (checked) {
                 Image(
                     painter = painterResource(R.drawable.ic_report_check),
                     contentDescription = null,
@@ -70,7 +70,7 @@ fun SeniorReportOption(
         }
         Text(
             text = text,
-            style = MaterialTheme.helloTypography.body3,
+            style = MaterialTheme.helloTypography.body3Medium,
             color = colors.textPrimary,
             modifier = Modifier.padding(start = 10.dp),
         )

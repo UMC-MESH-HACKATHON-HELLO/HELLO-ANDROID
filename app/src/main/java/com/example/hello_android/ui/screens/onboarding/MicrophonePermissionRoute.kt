@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.provider.Settings
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
@@ -40,6 +41,14 @@ fun MicrophonePermissionRoute(
             } else {
                 permissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
             }
+        }
+    }
+
+    BackHandler {
+        if (showSettingsInstructions) {
+            showSettingsInstructions = false
+        } else {
+            onBack()
         }
     }
 

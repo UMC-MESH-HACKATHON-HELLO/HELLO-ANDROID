@@ -1,5 +1,6 @@
 package com.example.hello_android.ui.screens.auth
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,6 +30,16 @@ fun AuthRoute(
     val invalidCodeMessage = stringResource(R.string.auth_error_invalid_code)
     val codeResentMessage = stringResource(R.string.auth_notice_code_resent)
     val invalidPasswordMessage = stringResource(R.string.auth_error_invalid_password)
+
+    BackHandler {
+        when (step) {
+            AuthStep.Login -> onBackToEntry()
+            AuthStep.Email -> step = AuthStep.Login
+            AuthStep.Code -> step = AuthStep.Email
+            AuthStep.Password -> step = AuthStep.Code
+            AuthStep.Success -> onAuthenticated()
+        }
+    }
 
     when (step) {
         AuthStep.Login -> LoginScreen(

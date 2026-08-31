@@ -213,7 +213,9 @@ fun SignUpSuccessScreen(
         )
         HelloStatusIcon(
             type = HelloStatusIconType.Success,
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .offset(x = 127.dp, y = 320.dp),
         )
         HelloButton(
             text = stringResource(R.string.action_home),

@@ -2,6 +2,8 @@ package com.example.hello_android.ui.screens.senior
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,9 +17,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,12 +32,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloSystemBars
+import com.example.hello_android.ui.components.HelloDimGradient
 import com.example.hello_android.ui.screens.senior.components.SeniorCallHeader
 import com.example.hello_android.ui.screens.senior.components.SeniorCompactCallControls
 import com.example.hello_android.ui.screens.senior.components.SeniorCompactMode
 import com.example.hello_android.ui.screens.senior.components.SeniorVoiceCallControls
 import com.example.hello_android.ui.theme.helloColors
 import com.example.hello_android.ui.theme.helloTypography
+import kotlinx.coroutines.delay
+
+private const val CameraControlsAutoHideMillis = 3_000L
 
 @Composable
 fun SeniorVoiceCallScreen(
@@ -94,10 +105,19 @@ fun SeniorCameraCallScreen(
     onReturnToVoice: () -> Unit,
     onHangUp: () -> Unit,
     modifier: Modifier = Modifier,
-    immersive: Boolean = false,
 ) {
     HelloSystemBars(darkStatusIcons = false)
     val colors = MaterialTheme.helloColors
+    var controlsVisible by rememberSaveable { mutableStateOf(true) }
+    val cameraInteractionSource = remember { MutableInteractionSource() }
+
+    LaunchedEffect(controlsVisible) {
+        if (controlsVisible) {
+            delay(CameraControlsAutoHideMillis)
+            controlsVisible = false
+        }
+    }
+
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -111,21 +131,25 @@ fun SeniorCameraCallScreen(
         )
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(258.dp)
-                .align(Alignment.TopCenter)
-                .background(
-                    Brush.verticalGradient(
-                        listOf(colors.surfaceDark, colors.surfaceDark.copy(alpha = 0f)),
-                    ),
-                ),
-        )
-        if (!immersive) {
+                .fillMaxSize()
+                .clickable(
+                    interactionSource = cameraInteractionSource,
+                    indication = null,
+                ) {
+                    controlsVisible = !controlsVisible
+                },
+        ) {}
+        if (controlsVisible) {
+            HelloDimGradient(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .height(258.dp),
+            )
             SeniorCallHeader(
                 mode = stringResource(R.string.senior_video_call),
                 title = stringResource(R.string.senior_camera_active_title),
                 description = stringResource(R.string.senior_camera_active_description),
-                modifier = Modifier.offset(y = 86.dp),
+                modifier = Modifier.offset(y = 54.dp),
             )
             SeniorCompactCallControls(
                 mode = SeniorCompactMode.Camera,

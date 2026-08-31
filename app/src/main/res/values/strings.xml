@@ -4,8 +4,30 @@
     <string name="action_back">뒤로가기</string>
     <string name="action_close">닫기</string>
     <string name="action_next">다음</string>
+    <string name="action_previous">이전</string>
+    <string name="action_start">시작하기</string>
     <string name="action_home">홈으로</string>
     <string name="brand_name">여보세요</string>
+
+    <string name="tutorial_senior_intro">도움을 요청하는 방법을\n단계별로 알아보아요</string>
+    <string name="tutorial_helper_intro">어르신께 도움을 나누는\n방법을 알아보아요</string>
+    <string name="tutorial_senior_01">도움이 필요할 때\n주황색 버튼을 눌러주세요</string>
+    <string name="tutorial_senior_02">잠시 기다리면 도우미와\n통화 연결이 돼요</string>
+    <string name="tutorial_senior_03">아래의 ‘카메라로 보여주기’\n버튼을 눌러주세요</string>
+    <string name="tutorial_senior_04">카메라로 주변을 비추면\n도우미가 함께 볼 수 있어요</string>
+    <string name="tutorial_senior_05">카메라를 끄고 싶으면\n버튼을 한번 더 눌러주세요</string>
+    <string name="tutorial_senior_06">아래의 ‘내 화면 보여주기’\n버튼을 눌러주세요</string>
+    <string name="tutorial_senior_07">공유를 원하는\n화면으로 들어가세요</string>
+    <string name="tutorial_senior_08">내 폰의 화면을\n도우미가 함께 볼 수 있어요</string>
+    <string name="tutorial_senior_09">화면 공유를 멈추고 싶으면\n버튼을 한번 더 눌러주세요</string>
+    <string name="tutorial_senior_10">통화를 종료하고 싶으면\n빨간색 버튼을 눌러주세요</string>
+    <string name="tutorial_senior_11">통화가 종료되면\n내용 요약을 확인할 수 있어요</string>
+    <string name="tutorial_helper_01">도움 대기를 위해\n주황색 버튼을 눌러주세요</string>
+    <string name="tutorial_helper_02">도움 요청이 오면\n수신 버튼을 눌러주세요</string>
+    <string name="tutorial_helper_03">도우미는 스피커와 통화\n종료 버튼만 조작 가능해요</string>
+    <string name="tutorial_helper_04">어르신이 카메라를 키면\n함께 주변을 볼 수 있어요</string>
+    <string name="tutorial_helper_05">어르신이 화면을 공유하면\n함께 화면을 볼 수 있어요</string>
+    <string name="tutorial_helper_06">통화가 종료되면\n포인트를 얻을 수 있어요</string>
 
     <string name="auth_login_title">도우미로 시작할까요?</string>
     <string name="auth_login_description">서비스 이용을 위해 로그인해 주세요</string>
@@ -83,8 +105,9 @@
     <string name="senior_summary_card_title">AI 요약</string>
     <string name="senior_summary_sample_question">OO역 3호선 환승 방법에 대해 물어봤어요.</string>
     <string name="senior_summary_sample_answer">3호선 환승은 2번 출구로 나가 왼쪽으로 이동하세요.</string>
-    <string name="senior_call_end_title">도움이 되었길 바라요</string>
-    <string name="senior_call_end_description">필요하면 언제든 다시 요청하세요</string>
+    <string name="senior_call_end_title">통화가 종료되었습니다</string>
+    <string name="senior_call_end_description">필요하면 언제든 다시 도움을 요청하세요</string>
+    <string name="senior_call_end_category_time">길찾기 10:03</string>
     <string name="senior_call_automatic_end_title">통화가 자동 종료되었어요</string>
     <string name="senior_call_automatic_end_description">AI가 부적절한 행동 · 언행을 감지했어요</string>
     <string name="senior_report_prompt">불편한 일이 있었나요? 신고하기</string>
