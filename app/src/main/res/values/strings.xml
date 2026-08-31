@@ -8,6 +8,8 @@
     <string name="action_start">시작하기</string>
     <string name="action_home">홈으로</string>
     <string name="brand_name">여보세요</string>
+    <string name="senior_hide_call_controls">통화 컨트롤 숨기기</string>
+    <string name="senior_show_call_controls">통화 컨트롤 표시하기</string>
 
     <string name="tutorial_senior_intro">도움을 요청하는 방법을\n단계별로 알아보아요</string>
     <string name="tutorial_helper_intro">어르신께 도움을 나누는\n방법을 알아보아요</string>
@@ -25,7 +27,7 @@
     <string name="tutorial_helper_01">도움 대기를 위해\n주황색 버튼을 눌러주세요</string>
     <string name="tutorial_helper_02">도움 요청이 오면\n수신 버튼을 눌러주세요</string>
     <string name="tutorial_helper_03">도우미는 스피커와 통화\n종료 버튼만 조작 가능해요</string>
-    <string name="tutorial_helper_04">어르신이 카메라를 키면\n함께 주변을 볼 수 있어요</string>
+    <string name="tutorial_helper_04">어르신이 카메라를 켜면\n함께 주변을 볼 수 있어요</string>
     <string name="tutorial_helper_05">어르신이 화면을 공유하면\n함께 화면을 볼 수 있어요</string>
     <string name="tutorial_helper_06">통화가 종료되면\n포인트를 얻을 수 있어요</string>
 

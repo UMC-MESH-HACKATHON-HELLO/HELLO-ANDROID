@@ -110,6 +110,13 @@ fun SeniorCameraCallScreen(
     val colors = MaterialTheme.helloColors
     var controlsVisible by rememberSaveable { mutableStateOf(true) }
     val cameraInteractionSource = remember { MutableInteractionSource() }
+    val controlsToggleLabel = stringResource(
+        if (controlsVisible) {
+            R.string.senior_hide_call_controls
+        } else {
+            R.string.senior_show_call_controls
+        },
+    )
 
     LaunchedEffect(controlsVisible) {
         if (controlsVisible) {
@@ -135,6 +142,7 @@ fun SeniorCameraCallScreen(
                 .clickable(
                     interactionSource = cameraInteractionSource,
                     indication = null,
+                    onClickLabel = controlsToggleLabel,
                 ) {
                     controlsVisible = !controlsVisible
                 },

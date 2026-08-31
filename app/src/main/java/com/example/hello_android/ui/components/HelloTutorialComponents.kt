@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -54,7 +55,10 @@ fun HelloTutorialTopBar(
                 .align(Alignment.CenterEnd)
                 .offset(x = (-16).dp)
                 .size(24.dp)
-                .clickable(onClick = onClose),
+                .clickable(
+                    role = Role.Button,
+                    onClick = onClose,
+                ),
         )
     }
 }
