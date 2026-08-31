@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.ui.theme.helloColors
 import com.example.hello_android.ui.theme.helloTypography
@@ -24,6 +26,12 @@ enum class HelloButtonStyle {
     Primary,
     Secondary,
     Disabled,
+    Text,
+}
+
+enum class HelloButtonScale {
+    Large,
+    Small,
 }
 
 @Composable
@@ -34,6 +42,7 @@ fun HelloButton(
     style: HelloButtonStyle = HelloButtonStyle.Primary,
     enabled: Boolean = style != HelloButtonStyle.Disabled,
     leadingContent: (@Composable () -> Unit)? = null,
+    scale: HelloButtonScale = HelloButtonScale.Large,
 ) {
     val colors = MaterialTheme.helloColors
     val resolvedStyle = if (enabled) style else HelloButtonStyle.Disabled
@@ -57,12 +66,20 @@ fun HelloButton(
             content = colors.textDisabled
             border = null
         }
+        HelloButtonStyle.Text -> {
+            background = Color.Transparent
+            content = colors.textTertiary
+            border = null
+        }
     }
 
     val shape = RoundedCornerShape(10.dp)
     Row(
         modifier = modifier
-            .fillMaxWidth()
+            .then(
+                if (scale == HelloButtonScale.Large) Modifier.fillMaxWidth()
+                else Modifier.width(160.dp),
+            )
             .height(50.dp)
             .clip(shape)
             .background(background)
@@ -78,8 +95,17 @@ fun HelloButton(
         leadingContent?.invoke()
         Text(
             text = text,
-            style = MaterialTheme.helloTypography.label1Medium,
+            style = if (resolvedStyle == HelloButtonStyle.Text) {
+                MaterialTheme.helloTypography.body3
+            } else {
+                MaterialTheme.helloTypography.label1Medium
+            },
             color = content,
+            textDecoration = if (resolvedStyle == HelloButtonStyle.Text) {
+                TextDecoration.Underline
+            } else {
+                TextDecoration.None
+            },
         )
     }
 }

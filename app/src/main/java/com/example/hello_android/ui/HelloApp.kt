@@ -1,14 +1,17 @@
 package com.example.hello_android.ui
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.fillMaxSize
 import com.example.hello_android.R
@@ -24,13 +27,21 @@ import com.example.hello_android.ui.screens.senior.SeniorHomeScreen
 import com.example.hello_android.ui.screens.senior.SeniorReportScreen
 import com.example.hello_android.ui.screens.senior.SeniorScreenShareCallScreen
 import com.example.hello_android.ui.screens.senior.SeniorVoiceCallScreen
+import com.example.hello_android.ui.screens.tutorial.TutorialRoute
+import com.example.hello_android.ui.components.HelloTutorialRole
 import com.example.hello_android.ui.theme.helloColors
 import kotlinx.coroutines.delay
+
+private const val TutorialPreferencesName = "hello_tutorial_preferences"
+private const val SeniorTutorialSeenKey = "senior_tutorial_seen"
+private const val HelperTutorialSeenKey = "helper_tutorial_seen"
 
 private enum class HelloRoute {
     Splash,
     Entry,
     Microphone,
+    SeniorTutorial,
+    HelperTutorial,
     SeniorHome,
     SeniorTrying,
     SeniorVoice,
@@ -45,6 +56,32 @@ private enum class HelloRoute {
 @Composable
 fun HelloApp() {
     var route by rememberSaveable { mutableStateOf(HelloRoute.Splash) }
+    val context = LocalContext.current
+    val tutorialPreferences = remember(context) {
+        context.applicationContext.getSharedPreferences(
+            TutorialPreferencesName,
+            android.content.Context.MODE_PRIVATE,
+        )
+    }
+
+    BackHandler(enabled = route != HelloRoute.Splash && route != HelloRoute.Entry) {
+        route = when (route) {
+            HelloRoute.Microphone,
+            HelloRoute.SeniorTutorial,
+            HelloRoute.HelperTutorial,
+            HelloRoute.SeniorHome,
+            HelloRoute.Auth -> HelloRoute.Entry
+            HelloRoute.SeniorTrying,
+            HelloRoute.SeniorVoice -> HelloRoute.SeniorHome
+            HelloRoute.SeniorCamera,
+            HelloRoute.SeniorShare -> HelloRoute.SeniorVoice
+            HelloRoute.SeniorSummary -> HelloRoute.SeniorHome
+            HelloRoute.SeniorEnd -> HelloRoute.SeniorSummary
+            HelloRoute.SeniorReport -> HelloRoute.SeniorEnd
+            HelloRoute.Splash,
+            HelloRoute.Entry -> route
+        }
+    }
 
     LaunchedEffect(route) {
         when (route) {
@@ -67,8 +104,36 @@ fun HelloApp() {
         when (route) {
             HelloRoute.Splash -> SplashScreen()
             HelloRoute.Entry -> EntryScreen(
-                onSeniorSelected = { route = HelloRoute.Microphone },
-                onHelperSelected = { route = HelloRoute.Auth },
+                onSeniorSelected = {
+                    route = if (tutorialPreferences.getBoolean(SeniorTutorialSeenKey, false)) {
+                        HelloRoute.Microphone
+                    } else {
+                        HelloRoute.SeniorTutorial
+                    }
+                },
+                onHelperSelected = {
+                    route = if (tutorialPreferences.getBoolean(HelperTutorialSeenKey, false)) {
+                        HelloRoute.Auth
+                    } else {
+                        HelloRoute.HelperTutorial
+                    }
+                },
+            )
+            HelloRoute.SeniorTutorial -> TutorialRoute(
+                role = HelloTutorialRole.Senior,
+                onBack = { route = HelloRoute.Entry },
+                onFinished = {
+                    tutorialPreferences.edit().putBoolean(SeniorTutorialSeenKey, true).apply()
+                    route = HelloRoute.Microphone
+                },
+            )
+            HelloRoute.HelperTutorial -> TutorialRoute(
+                role = HelloTutorialRole.Helper,
+                onBack = { route = HelloRoute.Entry },
+                onFinished = {
+                    tutorialPreferences.edit().putBoolean(HelperTutorialSeenKey, true).apply()
+                    route = HelloRoute.Auth
+                },
             )
             HelloRoute.Microphone -> MicrophonePermissionRoute(
                 onBack = { route = HelloRoute.Entry },

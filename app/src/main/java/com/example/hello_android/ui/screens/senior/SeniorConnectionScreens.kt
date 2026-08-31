@@ -66,7 +66,9 @@ fun SeniorCallingFailScreen(
         )
         HelloStatusIcon(
             type = HelloStatusIconType.Error,
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = 320.dp),
         )
         Column(
             modifier = Modifier

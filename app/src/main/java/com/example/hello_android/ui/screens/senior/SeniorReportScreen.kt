@@ -19,10 +19,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.hello_android.R
 import com.example.hello_android.ui.components.HelloButton
+import com.example.hello_android.ui.components.HelloCheckbox
 import com.example.hello_android.ui.components.HelloScreenTitle
 import com.example.hello_android.ui.components.HelloSystemBars
 import com.example.hello_android.ui.components.HelloTopBar
-import com.example.hello_android.ui.screens.senior.components.SeniorReportOption
 
 enum class SeniorReportReason(@param:StringRes val labelRes: Int) {
     Financial(R.string.senior_report_financial),
@@ -64,10 +64,10 @@ fun SeniorReportScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
             reasons.forEachIndexed { index, reason ->
-                SeniorReportOption(
+                HelloCheckbox(
                     text = stringResource(reason.labelRes),
-                    selected = selections[index],
-                    onClick = { selections[index] = !selections[index] },
+                    checked = selections[index],
+                    onCheckedChange = { selections[index] = it },
                 )
             }
         }

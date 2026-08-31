@@ -65,6 +65,7 @@ fun SeniorCallEndScreen(
     onHome: () -> Unit,
     modifier: Modifier = Modifier,
     automaticEnd: Boolean = false,
+    categoryAndTime: String? = null,
 ) {
     HelloSystemBars(darkStatusIcons = true)
     val colors = MaterialTheme.helloColors
@@ -83,7 +84,17 @@ fun SeniorCallEndScreen(
         )
         HelloStatusIcon(
             type = if (automaticEnd) HelloStatusIconType.Alert else HelloStatusIconType.Success,
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = 320.dp),
+        )
+        Text(
+            text = categoryAndTime ?: stringResource(R.string.senior_call_end_category_time),
+            style = MaterialTheme.helloTypography.body3,
+            color = colors.textDisabled,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .offset(y = 460.dp),
         )
         Column(
             modifier = Modifier
